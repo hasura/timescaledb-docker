@@ -72,6 +72,7 @@ RUN set -ex \
                 make \
                 cmake \
                 util-linux-dev \
+                libxml2-dev \
     \
     # Build current version \
     && cd /build/timescaledb && rm -fr build \
