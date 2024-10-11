@@ -4,7 +4,7 @@ ARG PREV_EXTRA
 ############################
 # Build tools binaries in separate image
 ############################
-ARG GO_VERSION=1.21.6
+ARG GO_VERSION=1.23.1
 FROM golang:${GO_VERSION}-alpine AS tools
 
 ENV TOOLS_VERSION 0.8.1
@@ -13,7 +13,7 @@ RUN apk update && apk add --no-cache git \
     && mkdir -p ${GOPATH}/src/github.com/timescale/ \
     && cd ${GOPATH}/src/github.com/timescale/ \
     && git clone https://github.com/timescale/timescaledb-tune.git \
-    && git clone https://github.com/sfarqu/timescaledb-parallel-copy.git \
+    && git clone https://github.com/hasura/timescaledb-parallel-copy.git \
     # Build timescaledb-tune
     && cd timescaledb-tune/cmd/timescaledb-tune \
     && git fetch && git checkout --quiet $(git describe --abbrev=0) \
@@ -72,6 +72,7 @@ RUN set -ex \
                 make \
                 cmake \
                 util-linux-dev \
+                libxml2-dev \
     \
     # Build current version \
     && cd /build/timescaledb && rm -fr build \
